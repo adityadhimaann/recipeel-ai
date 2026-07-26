@@ -349,7 +349,7 @@ export default function Landing() {
               </div>
 
               <Link
-                href="/auth?mode=signup"
+                href="/chef-bot"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground shadow-soft transition hover:shadow-lift active:scale-95"
               >
                 Chat with SousChef AI <ArrowRight className="h-3.5 w-3.5" />

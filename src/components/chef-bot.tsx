@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChefHat,
@@ -13,6 +14,7 @@ import {
   Lightbulb,
   ArrowRight,
   ShieldCheck,
+  Maximize2,
 } from "lucide-react";
 
 type Message = {
@@ -153,12 +155,22 @@ Feel free to ask me specifically about importing, conflict checks, substitutions
                 </div>
               </div>
 
-              <button
-                onClick={() => setIsOpen(false)}
-                className="grid h-8 w-8 place-items-center rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer text-primary-foreground"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-1.5">
+                <Link
+                  href="/chef-bot"
+                  onClick={() => setIsOpen(false)}
+                  className="grid h-8 w-8 place-items-center rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer text-primary-foreground"
+                  title="Open in full page"
+                >
+                  <Maximize2 className="h-4 w-4" />
+                </Link>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="grid h-8 w-8 place-items-center rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer text-primary-foreground"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
             {/* Chat Messages Body */}
