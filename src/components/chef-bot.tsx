@@ -28,7 +28,7 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: "welcome-1",
     sender: "bot",
-    text: "Hi there! 👋 I'm SousChef — your ReciPeel AI assistant. How can I help you with recipe imports, dietary safety, or meal planning today?",
+    text: "Hi there! I'm SousChef — your ReciPeel AI assistant. How can I help you with recipe imports, dietary safety, or meal planning today?",
     timestamp: "Just now",
   },
 ];
@@ -187,7 +187,7 @@ Feel free to ask me specifically about importing, conflict checks, substitutions
                         : "bg-primary text-primary-foreground font-bold"
                     }`}
                   >
-                    {m.sender === "user" ? <User className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
+                    {m.sender === "user" ? <User className="h-3.5 w-3.5" /> : <ChefHat className="h-3.5 w-3.5" />}
                   </div>
 
                   <div className={`max-w-[80%] space-y-1 ${m.sender === "user" ? "text-right" : "text-left"}`}>

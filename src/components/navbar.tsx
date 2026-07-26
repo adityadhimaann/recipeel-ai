@@ -23,6 +23,7 @@ import {
   Sparkles,
   Sun,
   Moon,
+  CalendarDays,
 } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,9 +67,9 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/dashboard", label: "Kitchen Planner", icon: ChefHat },
+    { href: "/dashboard", label: "Kitchen Planner", icon: CalendarDays },
     { href: "/recipes", label: "Library", icon: Salad },
-    { href: "/chef-bot", label: "SousChef AI", icon: Sparkles },
+    { href: "/chef-bot", label: "SousChef AI", icon: ChefHat },
     { href: "/onboarding", label: "Diet Setup", icon: ShieldCheck },
   ];
 

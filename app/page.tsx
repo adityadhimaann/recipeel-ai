@@ -373,7 +373,10 @@ export default function Landing() {
                         : "border-border/60 bg-surface-2/60 text-muted-foreground hover:text-foreground hover:border-border"
                     }`}
                   >
-                    💬 {qa.q}
+                    <span className="flex items-center gap-2">
+                      <MessageSquare className="h-3.5 w-3.5 text-primary shrink-0" />
+                      <span>{qa.q}</span>
+                    </span>
                   </button>
                 ))}
               </div>

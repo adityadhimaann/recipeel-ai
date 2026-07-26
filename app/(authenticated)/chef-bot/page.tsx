@@ -22,6 +22,9 @@ import {
   Flame,
   Zap,
   Info,
+  BookOpen,
+  HelpCircle,
+  MessageSquare,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
@@ -31,24 +34,23 @@ type Message = {
   sender: "user" | "bot";
   text: string;
   timestamp: string;
-  category?: string;
 };
 
 const INITIAL_MESSAGES: Message[] = [
   {
     id: "welcome-full-1",
     sender: "bot",
-    text: "Welcome to your SousChef AI Workspace! 🍳\n\nI am your intelligent ReciPeel assistant. I analyze social media recipe URLs (TikTok, Reels, Shorts), screen ingredients against your saved allergies & diets, compute macro impact deltas for substitutions, and help you plan your weekly meals.\n\nHow can I help you in the kitchen today?",
+    text: "Welcome to your SousChef AI Workspace!\n\nI am your intelligent ReciPeel kitchen assistant. I analyze social media recipe URLs (TikTok, Reels, Shorts), screen ingredients against your saved allergies & diets, compute macro impact deltas for substitutions, and help you plan your weekly meals.\n\nHow can I help you in the kitchen today?",
     timestamp: "Just now",
   },
 ];
 
 const CATEGORIES = [
-  { id: "all", label: "✨ All Topics" },
-  { id: "imports", label: "📹 Video Imports" },
-  { id: "allergies", label: "🛡️ Allergy Shields" },
-  { id: "swaps", label: "🔄 Substitutions" },
-  { id: "macros", label: "📊 Macros & TDEE" },
+  { id: "all", label: "All Topics", icon: Sparkles },
+  { id: "imports", label: "Video Imports", icon: Play },
+  { id: "allergies", label: "Allergy Shields", icon: ShieldCheck },
+  { id: "swaps", label: "Substitutions", icon: Zap },
+  { id: "macros", label: "Macros & TDEE", icon: SlidersHorizontal },
 ];
 
 const SUGGESTED_PROMPTS = [
@@ -105,30 +107,30 @@ export default function SousChefFullPage() {
     const query = q.toLowerCase();
 
     if (query.includes("import") || query.includes("tiktok") || query.includes("reel") || query.includes("youtube")) {
-      return "📹 **Video Recipe Extraction**:\n\nTo import a recipe, navigate to `/recipes/import` or click **Import a recipe** on your Kitchen Planner dashboard.\n\n1. Paste any TikTok, Instagram Reel, or YouTube Shorts URL.\n2. Click **Process Recipe**.\n3. SousChef AI parses the video transcript, structures exact ingredient amounts, formats step-by-step cooking directions, and runs dietary conflict screening automatically!";
+      return "Video Recipe Extraction:\n\nTo import a recipe, navigate to /recipes/import or click Import a recipe on your Kitchen Planner dashboard.\n\n1. Paste any TikTok, Instagram Reel, or YouTube Shorts URL.\n2. Click Process Recipe.\n3. SousChef AI parses the video transcript, structures exact ingredient amounts, formats step-by-step cooking directions, and runs dietary conflict screening automatically!";
     }
 
     if (query.includes("conflict") || query.includes("hard") || query.includes("soft") || query.includes("allergy")) {
-      return "🛡️ **Conflict Screening Engine**:\n\nReciPeel screens extracted ingredients against your onboarding profile:\n\n• **HARD Conflicts (Red Alert)**: Triggered by saved allergies (e.g. peanuts, tree nuts, shellfish). Hard conflicts block instant saving until resolved or explicitly overridden for safety.\n• **SOFT Conflicts (Amber Alert)**: Triggered by diet preference mismatches (e.g. dairy or gluten for vegan/keto diets).";
+      return "Conflict Screening Engine:\n\nReciPeel screens extracted ingredients against your onboarding profile:\n\n• HARD Conflicts (Red Alert): Triggered by saved allergies (e.g. peanuts, tree nuts, shellfish). Hard conflicts block instant saving until resolved or explicitly overridden for safety.\n• SOFT Conflicts (Amber Alert): Triggered by diet preference mismatches (e.g. dairy or gluten for vegan/keto diets).";
     }
 
     if (query.includes("substitut") || query.includes("swap") || query.includes("replace")) {
-      return "🔄 **Smart Substitutions & Macro Impact**:\n\nReciPeel runs on 44+ pre-seeded substitution rules:\n\n• When a conflict is flagged, click **Swap → Alternative**.\n• Live Macro Delta: You'll see real-time nutrition changes (e.g. *Soy Sauce → Tamari: -40 cal, +0g protein, removes gluten*).\n• The total recipe calories, protein, carbs, and fats recalculate automatically!";
+      return "Smart Substitutions & Macro Impact:\n\nReciPeel runs on 44+ pre-seeded substitution rules:\n\n• When a conflict is flagged, click Swap → Alternative.\n• Live Macro Delta: You'll see real-time nutrition changes (e.g. Soy Sauce → Tamari: -40 cal, +0g protein, removes gluten).\n• The total recipe calories, protein, carbs, and fats recalculate automatically!";
     }
 
     if (query.includes("folder") || query.includes("organize") || query.includes("library") || query.includes("tag")) {
-      return "📖 **Recipe Library Management**:\n\nIn your Recipe Library (`/recipes`):\n\n1. Filter by **Safe For Me** or **Favorites**.\n2. Organize recipes into custom folders (e.g. *Quick Weeknights*, *High Protein Prep*).\n3. Add custom tags (e.g. `#keto`, `#20min`) to search and sort your library in seconds.";
+      return "Recipe Library Management:\n\nIn your Recipe Library (/recipes):\n\n1. Filter by Safe For Me or Favorites.\n2. Organize recipes into custom folders (e.g. Quick Weeknights, High Protein Prep).\n3. Add custom tags (e.g. #keto, #20min) to search and sort your library in seconds.";
     }
 
     if (query.includes("macro") || query.includes("calorie") || query.includes("tdee") || query.includes("onboarding")) {
-      return "📊 **Mifflin-St Jeor TDEE Calorie Calculation**:\n\nDuring Diet Setup (`/onboarding`), ReciPeel calculates your daily target energy expenditure based on your age, sex, height, weight, and fitness goals:\n\n• Weight Loss: 15-20% caloric deficit.\n• Muscle Gain: 10-15% caloric surplus.\n• Maintenance: Exact TDEE baseline.";
+      return "Mifflin-St Jeor TDEE Calorie Calculation:\n\nDuring Diet Setup (/onboarding), ReciPeel calculates your daily target energy expenditure based on your age, sex, height, weight, and fitness goals:\n\n• Weight Loss: 15-20% caloric deficit.\n• Muscle Gain: 10-15% caloric surplus.\n• Maintenance: Exact TDEE baseline.";
     }
 
     if (query.includes("peanut") || query.includes("dairy") || query.includes("allergen")) {
-      return "💡 **Popular Safe Ingredient Swaps**:\n\n• **Peanut Oil** → Avocado Oil or Olive Oil\n• **Soy Sauce** → Coconut Aminos or Tamari (Gluten-Free)\n• **Whole Milk** → Almond Milk or Oat Milk\n• **Peanut Butter** → Sunflower Seed Butter (SunButter)\n• **Butter** → Olive Oil or Dairy-Free Plant Butter";
+      return "Popular Safe Ingredient Swaps:\n\n• Peanut Oil → Avocado Oil or Olive Oil\n• Soy Sauce → Coconut Aminos or Tamari (Gluten-Free)\n• Whole Milk → Almond Milk or Oat Milk\n• Peanut Butter → Sunflower Seed Butter (SunButter)\n• Butter → Olive Oil or Dairy-Free Plant Butter";
     }
 
-    return `🍳 **SousChef AI Workspace Active**\n\nReciPeel simplifies recipe importing, dietary screening, and weekly meal planning. Ask me anything about:\n\n1. Importing video URLs\n2. Screening hard allergies & soft diet warnings\n3. Applying 1-click ingredient swaps\n4. TDEE calories and macro tracking`;
+    return "SousChef AI Workspace Active\n\nReciPeel simplifies recipe importing, dietary screening, and weekly meal planning. Ask me anything about:\n\n1. Importing video URLs\n2. Screening hard allergies & soft diet warnings\n3. Applying 1-click ingredient swaps\n4. TDEE calories and macro tracking";
   }
 
   function copyToClipboard(text: string, id: string) {
@@ -162,7 +164,10 @@ export default function SousChefFullPage() {
             </Link>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-display text-2xl font-bold text-foreground">SousChef AI Assistant</h1>
+                <div className="grid h-6 w-6 place-items-center rounded-lg bg-primary text-primary-foreground">
+                  <ChefHat className="h-3.5 w-3.5" />
+                </div>
+                <h1 className="font-display text-2xl font-bold text-foreground">SousChef AI Workspace</h1>
                 <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-bold text-emerald-600 flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live Kitchen Intelligence
                 </span>
@@ -191,21 +196,25 @@ export default function SousChefFullPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-stretch">
           {/* Main Chat Panel (8 cols) */}
           <div className="lg:col-span-8 rounded-3xl border border-border bg-surface shadow-lift overflow-hidden flex flex-col min-h-[620px]">
-            {/* Category Filter Chips */}
+            {/* Category Filter Chips with Real SVG Icons */}
             <div className="p-3 border-b border-border/60 bg-surface-2/60 flex items-center gap-2 overflow-x-auto no-scrollbar">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`shrink-0 rounded-full px-3.5 py-1 text-xs font-bold transition cursor-pointer ${
-                    selectedCategory === cat.id
-                      ? "bg-primary text-primary-foreground shadow-2xs"
-                      : "border border-border/80 bg-surface text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
+              {CATEGORIES.map((cat) => {
+                const Icon = cat.icon;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSelectedCategory(cat.id)}
+                    className={`shrink-0 flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-bold transition cursor-pointer ${
+                      selectedCategory === cat.id
+                        ? "bg-primary text-primary-foreground shadow-2xs"
+                        : "border border-border/80 bg-surface text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    {cat.label}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Chat Messages Log */}
@@ -222,7 +231,7 @@ export default function SousChefFullPage() {
                         : "bg-primary text-primary-foreground shadow-soft"
                     }`}
                   >
-                    {m.sender === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4.5 w-4.5" />}
+                    {m.sender === "user" ? <User className="h-4 w-4" /> : <ChefHat className="h-4.5 w-4.5" />}
                   </div>
 
                   <div className={`max-w-[82%] space-y-1 ${m.sender === "user" ? "text-right" : "text-left"}`}>
@@ -255,7 +264,7 @@ export default function SousChefFullPage() {
               {isTyping && (
                 <div className="flex items-center gap-3 text-xs text-muted-foreground">
                   <div className="grid h-9 w-9 place-items-center rounded-2xl bg-primary text-primary-foreground">
-                    <Bot className="h-4.5 w-4.5" />
+                    <ChefHat className="h-4.5 w-4.5" />
                   </div>
                   <div className="flex items-center gap-2 rounded-2xl border border-border bg-surface px-4 py-3 shadow-xs">
                     <span className="h-2 w-2 animate-bounce rounded-full bg-primary" />
@@ -280,8 +289,9 @@ export default function SousChefFullPage() {
                   <button
                     key={idx}
                     onClick={() => handleSend(p.text)}
-                    className="shrink-0 rounded-full border border-border/80 bg-background px-4 py-1.5 text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary-soft/40 transition cursor-pointer whitespace-nowrap shadow-2xs"
+                    className="shrink-0 flex items-center gap-1.5 rounded-full border border-border/80 bg-background px-4 py-1.5 text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary-soft/40 transition cursor-pointer whitespace-nowrap shadow-2xs"
                   >
+                    <MessageSquare className="h-3 w-3 text-primary" />
                     {p.text}
                   </button>
                 ))}
@@ -329,15 +339,21 @@ export default function SousChefFullPage() {
               <div className="space-y-2.5 text-xs">
                 <div className="flex items-center justify-between rounded-2xl bg-surface-2 p-3 border border-border/40">
                   <span className="text-muted-foreground font-medium">Allergy Shields:</span>
-                  <span className="font-bold text-emerald-600">Active (Hard Shield)</span>
+                  <span className="font-bold text-emerald-600 flex items-center gap-1">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" /> Active (Hard Shield)
+                  </span>
                 </div>
                 <div className="flex items-center justify-between rounded-2xl bg-surface-2 p-3 border border-border/40">
                   <span className="text-muted-foreground font-medium">TDEE Target:</span>
-                  <span className="font-bold text-foreground">2,250 kcal/day</span>
+                  <span className="font-bold text-foreground flex items-center gap-1">
+                    <Flame className="h-3.5 w-3.5 text-amber-500" /> 2,250 kcal/day
+                  </span>
                 </div>
                 <div className="flex items-center justify-between rounded-2xl bg-surface-2 p-3 border border-border/40">
                   <span className="text-muted-foreground font-medium">Seeded Swaps:</span>
-                  <span className="font-bold text-primary">44+ Rules Ready</span>
+                  <span className="font-bold text-primary flex items-center gap-1">
+                    <Zap className="h-3.5 w-3.5 text-primary" /> 44+ Rules Ready
+                  </span>
                 </div>
               </div>
             </div>
