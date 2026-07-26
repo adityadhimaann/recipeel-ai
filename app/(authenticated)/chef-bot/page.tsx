@@ -152,9 +152,9 @@ export default function SousChefFullPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <main className="mx-auto w-full max-w-6xl px-6 py-8 flex-1 flex flex-col">
-        {/* Top Header */}
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-5">
+      <main className="mx-auto w-full max-w-6xl px-0 py-0 sm:px-6 sm:py-8 flex-1 flex flex-col">
+        {/* Desktop Top Header (Hidden on Mobile for Edge-to-Edge Chat View) */}
+        <div className="hidden sm:flex mb-6 flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-5">
           <div className="flex items-center gap-3">
             <Link
               href="/dashboard"
@@ -194,9 +194,9 @@ export default function SousChefFullPage() {
 
         {/* Main Grid: Chat Workspace + Right Quick Panel */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-stretch">
-          {/* Main Chat Panel (8 cols) */}
-          <div className="lg:col-span-8 rounded-3xl border border-border bg-surface shadow-lift overflow-hidden flex flex-col h-[calc(100vh-170px)] min-h-[500px] lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px]">
-            {/* Category Filter Chips with Real SVG Icons */}
+          {/* Main Chat Panel (Edge-to-Edge on Mobile) */}
+          <div className="lg:col-span-8 border-0 sm:border border-border bg-surface sm:rounded-3xl sm:shadow-lift overflow-hidden flex flex-col h-[calc(100vh-65px)] sm:h-[600px] lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px]">
+            {/* Category Filter Chips */}
             <div className="p-3 border-b border-border/60 bg-surface-2/60 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
               {CATEGORIES.map((cat) => {
                 const Icon = cat.icon;
@@ -218,14 +218,14 @@ export default function SousChefFullPage() {
             </div>
 
             {/* Chat Messages Log with inner scrolling */}
-            <div className="flex-1 min-h-0 overflow-y-auto p-6 space-y-5 bg-background/40 scroll-smooth">
+            <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5 bg-background/40 scroll-smooth">
               {messages.map((m) => (
                 <div
                   key={m.id}
                   className={`flex items-start gap-3.5 ${m.sender === "user" ? "flex-row-reverse" : "flex-row"}`}
                 >
                   <div
-                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-2xl text-xs font-bold ${
+                    className={`grid h-8 sm:h-9 w-8 sm:w-9 shrink-0 place-items-center rounded-2xl text-xs font-bold ${
                       m.sender === "user"
                         ? "bg-secondary text-secondary-foreground"
                         : "bg-primary text-primary-foreground shadow-soft"
@@ -234,9 +234,9 @@ export default function SousChefFullPage() {
                     {m.sender === "user" ? <User className="h-4 w-4" /> : <ChefHat className="h-4.5 w-4.5" />}
                   </div>
 
-                  <div className={`max-w-[82%] space-y-1 ${m.sender === "user" ? "text-right" : "text-left"}`}>
+                  <div className={`max-w-[85%] sm:max-w-[82%] space-y-1 ${m.sender === "user" ? "text-right" : "text-left"}`}>
                     <div
-                      className={`group relative inline-block rounded-3xl p-4 text-xs sm:text-sm leading-relaxed ${
+                      className={`group relative inline-block rounded-3xl p-3.5 sm:p-4 text-xs sm:text-sm leading-relaxed ${
                         m.sender === "user"
                           ? "bg-primary text-primary-foreground font-medium rounded-tr-xs shadow-2xs"
                           : "bg-surface border border-border text-foreground rounded-tl-xs shadow-2xs whitespace-pre-line"
@@ -263,7 +263,7 @@ export default function SousChefFullPage() {
               {/* Typing indicator */}
               {isTyping && (
                 <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  <div className="grid h-9 w-9 place-items-center rounded-2xl bg-primary text-primary-foreground">
+                  <div className="grid h-8 sm:h-9 w-8 sm:w-9 place-items-center rounded-2xl bg-primary text-primary-foreground">
                     <ChefHat className="h-4.5 w-4.5" />
                   </div>
                   <div className="flex items-center gap-2 rounded-2xl border border-border bg-surface px-4 py-3 shadow-xs">
@@ -277,7 +277,7 @@ export default function SousChefFullPage() {
             </div>
 
             {/* Quick Prompt Suggestions Track */}
-            <div className="px-5 py-3 border-t border-border/40 bg-surface flex flex-col gap-2">
+            <div className="px-4 sm:px-5 py-3 border-t border-border/40 bg-surface flex flex-col gap-2">
               <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                 <span className="flex items-center gap-1.5">
                   <Lightbulb className="h-3.5 w-3.5 text-primary" /> Suggested Questions
@@ -289,7 +289,7 @@ export default function SousChefFullPage() {
                   <button
                     key={idx}
                     onClick={() => handleSend(p.text)}
-                    className="shrink-0 flex items-center gap-1.5 rounded-full border border-border/80 bg-background px-4 py-1.5 text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary-soft/40 transition cursor-pointer whitespace-nowrap shadow-2xs"
+                    className="shrink-0 flex items-center gap-1.5 rounded-full border border-border/80 bg-background px-3.5 sm:px-4 py-1.5 text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary-soft/40 transition cursor-pointer whitespace-nowrap shadow-2xs"
                   >
                     <MessageSquare className="h-3 w-3 text-primary" />
                     {p.text}
@@ -304,27 +304,27 @@ export default function SousChefFullPage() {
                 e.preventDefault();
                 handleSend();
               }}
-              className="p-4 bg-surface border-t border-border flex items-center gap-3"
+              className="p-3 sm:p-4 bg-surface border-t border-border flex items-center gap-2.5"
             >
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask SousChef AI about recipe imports, allergy shields, or macro swaps..."
-                className="flex-1 rounded-2xl border border-input bg-background px-5 py-3 text-xs sm:text-sm text-foreground outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 shadow-xs"
+                placeholder="Ask SousChef AI about recipe imports or macro swaps..."
+                className="flex-1 rounded-2xl border border-input bg-background px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm text-foreground outline-none focus:border-primary focus:ring-4 focus:ring-primary/15 shadow-xs"
               />
               <button
                 type="submit"
                 disabled={!input.trim()}
-                className="inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3 text-xs sm:text-sm font-semibold text-primary-foreground transition disabled:opacity-50 hover:shadow-lift cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-primary-foreground transition disabled:opacity-50 hover:shadow-lift cursor-pointer active:scale-95 shrink-0"
               >
                 Send <Send className="h-4 w-4" />
               </button>
             </form>
           </div>
 
-          {/* Right Sidebar Quick Actions & Diet Status (4 cols) */}
-          <div className="lg:col-span-4 space-y-6 flex flex-col lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px] lg:overflow-y-auto pr-1 no-scrollbar">
+          {/* Right Sidebar Quick Actions & Diet Status (Visible on Desktop) */}
+          <div className="hidden lg:flex lg:col-span-4 space-y-6 flex-col lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px] lg:overflow-y-auto pr-1 no-scrollbar">
             {/* Active Diet Profile Card */}
             <div className="rounded-3xl border border-border bg-surface p-6 shadow-card space-y-4">
               <div className="flex items-center justify-between border-b border-border/60 pb-3">
