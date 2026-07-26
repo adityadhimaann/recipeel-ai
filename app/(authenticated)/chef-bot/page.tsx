@@ -151,8 +151,8 @@ export default function SousChefFullPage() {
       : SUGGESTED_PROMPTS.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-background text-foreground">
-      <main className="mx-auto w-full max-w-6xl px-0 py-0 sm:px-6 sm:py-8 flex-1 flex flex-col min-h-0">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      <main className="mx-auto w-full max-w-6xl px-0 py-0 sm:px-6 sm:py-8 flex-1 flex flex-col">
         {/* Desktop Top Header (Hidden on Mobile for Edge-to-Edge Chat View) */}
         <div className="hidden sm:flex mb-6 flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-5">
           <div className="flex items-center gap-3">
@@ -193,9 +193,9 @@ export default function SousChefFullPage() {
         </div>
 
         {/* Main Grid: Chat Workspace + Right Quick Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0 items-stretch">
-          {/* Main Chat Panel (Edge-to-Edge Fill on Mobile) */}
-          <div className="lg:col-span-8 border-0 sm:border border-border bg-surface sm:rounded-3xl sm:shadow-lift overflow-hidden flex flex-col flex-1 min-h-0 sm:h-[600px] lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-stretch">
+          {/* Main Chat Panel (Fixed Native Full Screen on Mobile, Inner Scroll Only) */}
+          <div className="fixed inset-x-0 top-[57px] bottom-0 z-10 flex flex-col bg-surface border-0 sm:static sm:z-auto sm:border sm:border-border sm:rounded-3xl sm:shadow-lift overflow-hidden sm:h-[600px] lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px] lg:col-span-8">
             {/* Category Filter Chips */}
             <div className="p-3 border-b border-border/60 bg-surface-2/60 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
               {CATEGORIES.map((cat) => {
@@ -217,7 +217,7 @@ export default function SousChefFullPage() {
               })}
             </div>
 
-            {/* Chat Messages Log with inner scrolling */}
+            {/* Chat Messages Log with inner scrolling ONLY */}
             <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5 bg-background/40 scroll-smooth">
               {messages.map((m) => (
                 <div
@@ -298,13 +298,13 @@ export default function SousChefFullPage() {
               </div>
             </div>
 
-            {/* Input Form Bar (Pinned to exact bottom of viewport) */}
+            {/* Input Form Bar (Pinned to bottom of mobile screen with safe-area padding) */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSend();
               }}
-              className="p-3 sm:p-4 bg-surface border-t border-border flex items-center gap-2.5 shrink-0"
+              className="p-3 sm:p-4 bg-surface border-t border-border flex items-center gap-2.5 shrink-0 pb-[max(12px,env(safe-area-inset-bottom))]"
             >
               <input
                 type="text"

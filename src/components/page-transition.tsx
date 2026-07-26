@@ -53,7 +53,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="relative w-full flex-1 flex flex-col min-h-0 overflow-x-hidden">
+    <div className="relative w-full flex-1 overflow-x-hidden">
       <AnimatePresence mode="wait" custom={direction} initial={false}>
         <motion.div
           key={pathname}
@@ -66,7 +66,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
             x: { type: "spring", stiffness: 280, damping: 28 },
             opacity: { duration: 0.2 },
           }}
-          className="w-full flex-1 flex flex-col min-h-0"
+          className="w-full flex-1"
         >
           {children}
         </motion.div>
