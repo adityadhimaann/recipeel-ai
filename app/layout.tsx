@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import { Toaster } from "sonner";
 import { Navbar } from "@/components/navbar";
@@ -15,6 +15,13 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "ReciPeel — AI recipe import, dietary safety & meal planning",

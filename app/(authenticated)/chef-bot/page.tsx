@@ -304,7 +304,7 @@ export default function SousChefFullPage() {
                 e.preventDefault();
                 handleSend();
               }}
-              className="p-3 sm:p-4 bg-surface border-t border-border flex items-center gap-2.5"
+              className="p-3 sm:p-4 bg-surface border-t border-border flex items-center gap-2.5 pb-[max(12px,env(safe-area-inset-bottom))]"
             >
               <input
                 type="text"
