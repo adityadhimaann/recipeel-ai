@@ -9,6 +9,7 @@ const ROUTE_INDEXES: Record<string, number> = {
   "/dashboard": 1,
   "/recipes": 2,
   "/recipes/import": 2.5,
+  "/chef-bot": 2.8,
   "/onboarding": 3,
   "/auth": 4,
   "/reset-password": 5,
@@ -17,6 +18,7 @@ const ROUTE_INDEXES: Record<string, number> = {
 function getRouteIndex(path: string): number {
   if (ROUTE_INDEXES[path] !== undefined) return ROUTE_INDEXES[path];
   if (path.startsWith("/recipes")) return 2;
+  if (path.startsWith("/chef-bot")) return 2.8;
   if (path.startsWith("/onboarding")) return 3;
   return 0;
 }
@@ -51,7 +53,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="relative w-full flex-1 overflow-x-hidden">
+    <div className="relative w-full flex-1 flex flex-col min-h-0 overflow-x-hidden">
       <AnimatePresence mode="wait" custom={direction} initial={false}>
         <motion.div
           key={pathname}
@@ -64,7 +66,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
             x: { type: "spring", stiffness: 280, damping: 28 },
             opacity: { duration: 0.2 },
           }}
-          className="w-full flex-1"
+          className="w-full flex-1 flex flex-col min-h-0"
         >
           {children}
         </motion.div>

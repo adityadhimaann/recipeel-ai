@@ -151,8 +151,8 @@ export default function SousChefFullPage() {
       : SUGGESTED_PROMPTS.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="h-[calc(100dvh-57px)] sm:min-h-screen bg-background text-foreground flex flex-col overflow-hidden sm:overflow-auto">
-      <main className="mx-auto w-full max-w-6xl px-0 py-0 sm:px-6 sm:py-8 flex-1 flex flex-col h-full sm:h-auto overflow-hidden sm:overflow-visible">
+    <div className="flex-1 flex flex-col min-h-0 bg-background text-foreground">
+      <main className="mx-auto w-full max-w-6xl px-0 py-0 sm:px-6 sm:py-8 flex-1 flex flex-col min-h-0">
         {/* Desktop Top Header (Hidden on Mobile for Edge-to-Edge Chat View) */}
         <div className="hidden sm:flex mb-6 flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-5">
           <div className="flex items-center gap-3">
@@ -193,9 +193,9 @@ export default function SousChefFullPage() {
         </div>
 
         {/* Main Grid: Chat Workspace + Right Quick Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-stretch h-full sm:h-auto">
-          {/* Main Chat Panel (Edge-to-Edge on Mobile) */}
-          <div className="lg:col-span-8 border-0 sm:border border-border bg-surface sm:rounded-3xl sm:shadow-lift overflow-hidden flex flex-col h-full sm:h-[600px] lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0 items-stretch">
+          {/* Main Chat Panel (Edge-to-Edge Fill on Mobile) */}
+          <div className="lg:col-span-8 border-0 sm:border border-border bg-surface sm:rounded-3xl sm:shadow-lift overflow-hidden flex flex-col flex-1 min-h-0 sm:h-[600px] lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px]">
             {/* Category Filter Chips */}
             <div className="p-3 border-b border-border/60 bg-surface-2/60 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
               {CATEGORIES.map((cat) => {
@@ -277,7 +277,7 @@ export default function SousChefFullPage() {
             </div>
 
             {/* Quick Prompt Suggestions Track */}
-            <div className="px-4 sm:px-5 py-3 border-t border-border/40 bg-surface flex flex-col gap-2">
+            <div className="px-4 sm:px-5 py-3 border-t border-border/40 bg-surface flex flex-col gap-2 shrink-0">
               <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                 <span className="flex items-center gap-1.5">
                   <Lightbulb className="h-3.5 w-3.5 text-primary" /> Suggested Questions
@@ -298,13 +298,13 @@ export default function SousChefFullPage() {
               </div>
             </div>
 
-            {/* Input Form Bar */}
+            {/* Input Form Bar (Pinned to exact bottom of viewport) */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSend();
               }}
-              className="p-3 sm:p-4 bg-surface border-t border-border flex items-center gap-2.5 pb-[max(12px,env(safe-area-inset-bottom))]"
+              className="p-3 sm:p-4 bg-surface border-t border-border flex items-center gap-2.5 shrink-0"
             >
               <input
                 type="text"
