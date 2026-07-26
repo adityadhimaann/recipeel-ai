@@ -138,7 +138,7 @@ Feel free to ask me specifically about importing, conflict checks, substitutions
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-32px)] max-w-sm sm:max-w-md rounded-3xl border border-border bg-surface shadow-lift overflow-hidden flex flex-col h-[460px] sm:h-[520px] max-h-[80vh]"
+            className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-6 z-50 w-full sm:w-[420px] h-full sm:h-[530px] rounded-none sm:rounded-3xl border-0 sm:border border-border bg-surface shadow-lift overflow-hidden flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between bg-primary p-4 text-primary-foreground">

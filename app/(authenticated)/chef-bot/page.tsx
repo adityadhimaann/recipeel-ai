@@ -195,7 +195,7 @@ export default function SousChefFullPage() {
         {/* Main Grid: Chat Workspace + Right Quick Panel */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-stretch">
           {/* Main Chat Panel (8 cols) */}
-          <div className="lg:col-span-8 rounded-3xl border border-border bg-surface shadow-lift overflow-hidden flex flex-col h-[520px] sm:h-[600px] lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px]">
+          <div className="lg:col-span-8 rounded-3xl border border-border bg-surface shadow-lift overflow-hidden flex flex-col h-[calc(100vh-170px)] min-h-[500px] lg:h-[calc(100vh-175px)] lg:min-h-[580px] lg:max-h-[740px]">
             {/* Category Filter Chips with Real SVG Icons */}
             <div className="p-3 border-b border-border/60 bg-surface-2/60 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
               {CATEGORIES.map((cat) => {
