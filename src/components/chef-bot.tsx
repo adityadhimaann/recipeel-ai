@@ -36,6 +36,8 @@ const SUGGESTED_PROMPTS = [
   "What is the difference between Hard and Soft conflicts?",
   "How do ingredient substitutions work?",
   "How do I organize recipes into folders?",
+  "How are daily calorie and macro goals calculated?",
+  "How do I filter recipes by Diet-Safe Only?",
 ];
 
 export function ChefBot() {
@@ -208,21 +210,26 @@ Feel free to ask me specifically about importing, conflict checks, substitutions
               <div ref={chatEndRef} />
             </div>
 
-            {/* Suggested Prompts (if chat is short) */}
+            {/* Suggested Prompts (Horizontally Scrollable) */}
             {messages.length <= 3 && (
-              <div className="px-4 py-2 border-t border-border/40 bg-surface flex flex-wrap gap-1.5">
-                <span className="text-[10px] font-semibold uppercase text-muted-foreground w-full flex items-center gap-1 mb-0.5">
-                  <Lightbulb className="h-3 w-3 text-primary" /> Quick Suggestions:
-                </span>
-                {SUGGESTED_PROMPTS.map((p, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => handleSend(p)}
-                    className="rounded-full border border-border bg-background px-3 py-1 text-[11px] text-muted-foreground hover:border-primary hover:text-foreground transition cursor-pointer text-left"
-                  >
-                    {p}
-                  </button>
-                ))}
+              <div className="px-4 py-2.5 border-t border-border/40 bg-surface/95 flex flex-col gap-1.5">
+                <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Lightbulb className="h-3 w-3 text-primary" /> Quick Suggestions
+                  </span>
+                  <span className="text-[9px] opacity-70">Scroll horizontally →</span>
+                </div>
+                <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth">
+                  {SUGGESTED_PROMPTS.map((p, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleSend(p)}
+                      className="shrink-0 rounded-full border border-border/80 bg-background px-3.5 py-1.5 text-[11px] font-medium text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary-soft/40 transition cursor-pointer whitespace-nowrap shadow-2xs"
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
