@@ -160,7 +160,7 @@ export default function Landing() {
             </span>
 
             <h1 className="mt-6 font-display text-5xl leading-[1.08] text-foreground md:text-6xl font-bold">
-              Cook it <em className="text-primary not-italic font-normal">your way</em> — safely, calmly, every week.
+              Cook it <em className="text-primary not-italic font-normal">your way</em> safely, calmly, every week.
             </h1>
 
             <p className="mt-6 max-w-lg text-base text-muted-foreground leading-relaxed">
