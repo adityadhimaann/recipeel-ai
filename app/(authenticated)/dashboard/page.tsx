@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getProfile } from "@/app/actions/profile";
 import { Navbar } from "@/components/navbar";
 import { ChefBot } from "@/components/chef-bot";
-import { Sparkles, Salad, CalendarDays, ShoppingBasket, MapPin, ChefHat } from "lucide-react";
+import { ShieldCheck, Activity, Salad, CalendarDays, ShoppingBasket, MapPin, ChefHat } from "lucide-react";
 
 export default function Dashboard() {
   const [name, setName] = useState<string>("there");
@@ -34,7 +34,7 @@ export default function Dashboard() {
         {onboarded === false && (
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-primary/30 bg-primary-soft p-5">
             <div className="flex items-start gap-3">
-              <Sparkles className="mt-0.5 h-5 w-5 text-primary" />
+              <ShieldCheck className="mt-0.5 h-5 w-5 text-primary" />
               <div>
                 <p className="font-display text-lg">Finish setting up your diet profile</p>
                 <p className="text-sm text-muted-foreground">Two minutes — then every recipe you import gets checked automatically.</p>
@@ -69,7 +69,7 @@ export default function Dashboard() {
           <SoonCard icon={<CalendarDays className="h-5 w-5" />} title="Weekly planner" body="Drag recipes into breakfast, lunch, dinner and snacks." />
           <SoonCard icon={<ShoppingBasket className="h-5 w-5" />} title="Grocery list" body="Auto-generated from your plan, sorted by aisle." />
           <SoonCard icon={<MapPin className="h-5 w-5" />} title="Safe eats near me" body="Map of diet-safe stores and restaurants." />
-          <SoonCard icon={<Sparkles className="h-5 w-5" />} title="Nutrition dashboard" body="Calories, macros, streaks and weekly trend." />
+          <SoonCard icon={<Activity className="h-5 w-5" />} title="Nutrition dashboard" body="Calories, macros, streaks and weekly trend." />
         </section>
 
         <p className="mt-10 text-center text-xs text-muted-foreground">

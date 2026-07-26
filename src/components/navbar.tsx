@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import { BrandMark } from "@/components/brand";
-import { ArrowLeft, ChefHat, LogOut, Sparkles } from "lucide-react";
+import { ArrowLeft, ChefHat, LogOut, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
 export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "forgot" }) {
@@ -59,7 +59,7 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
                 : "text-muted-foreground"
             }`}
           >
-            <Sparkles className="h-4 w-4 text-primary" />
+            <ShieldCheck className="h-4 w-4 text-primary" />
             Diet Setup
           </Link>
         </nav>

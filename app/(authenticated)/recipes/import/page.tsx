@@ -591,7 +591,7 @@ export default function ImportRecipePage() {
           </Link>
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold text-primary">
-              <Sparkles className="h-3.5 w-3.5" /> AI Importer & Safety Engine
+              <ChefHat className="h-3.5 w-3.5" /> AI Importer & Safety Engine
             </span>
           </div>
         </div>
@@ -730,8 +730,9 @@ export default function ImportRecipePage() {
         {/* VIEW 2: MULTI-STEP LOADING ANIMATION */}
         {viewState === "loading" && (
           <div className="mx-auto max-w-md py-16 text-center">
-            <div className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-2xl bg-primary-soft text-primary">
-              <Loader2 className="h-8 w-8 animate-spin" />
+            <div className="relative mx-auto mb-6 grid h-16 w-16 place-items-center rounded-2xl bg-primary-soft text-primary shadow-soft">
+              <Loader2 className="h-10 w-10 animate-spin text-primary/40" />
+              <ChefHat className="absolute h-6 w-6 animate-pulse text-primary" />
             </div>
             <h2 className="font-display text-2xl text-foreground">Processing Video Recipe...</h2>
             <p className="mt-1 text-xs text-muted-foreground">Extracting audio, ingredient list, and calculating nutrition.</p>
