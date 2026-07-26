@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   title: "ReciPeel — AI recipe import, dietary safety & meal planning",
   description:
     "Import recipes from TikTok, Instagram and YouTube. Auto-detect diet and allergy conflicts, swap ingredients safely, and plan your week — all in one warm, calm space.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
     title: "ReciPeel — Cook it your way",
     description:
