@@ -68,6 +68,7 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
     { href: "/", label: "Home" },
     { href: "/dashboard", label: "Kitchen Planner", icon: ChefHat },
     { href: "/recipes", label: "Library", icon: Salad },
+    { href: "/chef-bot", label: "SousChef AI", icon: Sparkles },
     { href: "/onboarding", label: "Diet Setup", icon: ShieldCheck },
   ];
 
