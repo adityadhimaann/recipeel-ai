@@ -31,9 +31,11 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "forgot" }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
   const { theme, toggleTheme } = useTheme();
-  const signedIn = !!session?.user;
+
+  const [cachedUser, setCachedUser] = useState<{ name?: string; email?: string } | null>(null);
+  const [hasCheckedCache, setHasCheckedCache] = useState(false);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -42,6 +44,27 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
 
   const notifRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+
+  // Instant session cache initialization on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("recipeel_user_cache");
+      if (saved) setCachedUser(JSON.parse(saved));
+    } catch (e) {}
+    setHasCheckedCache(true);
+  }, []);
+
+  // Sync cache with live session state
+  useEffect(() => {
+    if (session?.user) {
+      const info = { name: session.user.name, email: session.user.email };
+      setCachedUser(info);
+      localStorage.setItem("recipeel_user_cache", JSON.stringify(info));
+    } else if (!isPending && !session?.user) {
+      setCachedUser(null);
+      localStorage.removeItem("recipeel_user_cache");
+    }
+  }, [session, isPending]);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -63,12 +86,18 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
   }, [pathname]);
 
   async function handleSignOut() {
+    localStorage.removeItem("recipeel_user_cache");
+    setCachedUser(null);
     await signOut();
     toast.success("Signed out.");
     router.replace("/auth");
   }
 
   if (pathname === "/auth") return null;
+
+  const currentUser = session?.user || cachedUser;
+  const signedIn = !!currentUser;
+  const showSkeleton = isPending && !signedIn && !hasCheckedCache;
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -78,7 +107,7 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
     { href: "/onboarding", label: "Diet Setup", icon: ShieldCheck },
   ];
 
-  const userDisplayName = session?.user?.name || session?.user?.email?.split("@")[0] || "User";
+  const userDisplayName = currentUser?.name || currentUser?.email?.split("@")[0] || "User";
   const userInitial = userDisplayName.charAt(0).toUpperCase();
 
   return (
@@ -223,8 +252,10 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
             </AnimatePresence>
           </div>
 
-          {/* Signed In User Profile Dropdown or Auth Links */}
-          {signedIn ? (
+          {/* Skeleton or Signed In User Profile Dropdown or Auth Links */}
+          {showSkeleton ? (
+            <div className="h-8 sm:h-9 w-20 sm:w-28 rounded-full bg-surface-2 animate-pulse border border-border/40" />
+          ) : signedIn ? (
             <div className="relative" ref={profileRef}>
               <button
                 onClick={() => {
@@ -252,7 +283,7 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
                   >
                     <div className="px-3 py-2.5 border-b border-border/60 mb-1">
                       <p className="font-bold text-foreground truncate">{userDisplayName}</p>
-                      <p className="text-[11px] text-muted-foreground truncate">{session.user.email}</p>
+                      <p className="text-[11px] text-muted-foreground truncate">{currentUser?.email || ""}</p>
                     </div>
 
                     <div className="space-y-0.5">
