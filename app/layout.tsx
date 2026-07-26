@@ -3,6 +3,7 @@ import { Inter, Fraunces } from "next/font/google";
 import { Toaster } from "sonner";
 import { Navbar } from "@/components/navbar";
 import { PageTransition } from "@/components/page-transition";
+import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles.css";
 
 const inter = Inter({
@@ -41,11 +42,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col bg-background">
-        <Navbar />
-        <PageTransition>{children}</PageTransition>
-        <Toaster position="top-center" richColors />
+        <ThemeProvider>
+          <Navbar />
+          <PageTransition>{children}</PageTransition>
+          <Toaster position="top-center" richColors />
+        </ThemeProvider>
       </body>
     </html>
   );

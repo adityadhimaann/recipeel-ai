@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import { BrandMark } from "@/components/brand";
+import { useTheme } from "@/components/theme-provider";
 import {
   ArrowLeft,
   ChefHat,
@@ -20,6 +21,8 @@ import {
   BookOpen,
   CheckCircle2,
   Sparkles,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,6 +31,7 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
   const pathname = usePathname();
   const router = useRouter();
   const { data: session } = useSession();
+  const { theme, toggleTheme } = useTheme();
   const signedIn = !!session?.user;
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -116,6 +120,30 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
 
         {/* Right CTA & Controls */}
         <div className="flex items-center gap-2.5">
+          {/* iOS 26 Glassmorphism Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="relative grid h-9 w-9 place-items-center rounded-full border border-border/80 bg-surface text-foreground transition hover:border-primary hover:text-primary active:scale-95 cursor-pointer shadow-2xs"
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            aria-label="Toggle theme"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={theme}
+                initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+                animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.2 }}
+              >
+                {theme === "dark" ? (
+                  <Sun className="h-4 w-4 text-amber-400 fill-amber-400/20" />
+                ) : (
+                  <Moon className="h-4 w-4 text-primary fill-primary/20" />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </button>
+
           {/* Notification Bell Dropdown */}
           <div className="relative" ref={notifRef}>
             <button
