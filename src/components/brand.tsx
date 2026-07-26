@@ -1,20 +1,17 @@
 import { cn } from "@/lib/utils";
+import { ChefHat } from "lucide-react";
 
 export function BrandMark({ className, showWord = true }: { className?: string; showWord?: boolean }) {
   return (
-    <div className={cn("inline-flex items-center gap-2", className)}>
+    <div className={cn("inline-flex items-center gap-2.5", className)}>
       <span
         aria-hidden
-        className="grid h-8 w-8 place-items-center rounded-xl ink-gradient text-primary-foreground shadow-soft"
+        className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground shadow-soft transition-transform group-hover:scale-105"
       >
-        <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" strokeWidth="2.2" stroke="currentColor">
-          <path d="M4 12c0-4.5 3.5-8 8-8 2 0 3.5.6 4.5 1.8" strokeLinecap="round" />
-          <path d="M20 12c0 4.5-3.5 8-8 8-2 0-3.5-.6-4.5-1.8" strokeLinecap="round" />
-          <circle cx="12" cy="12" r="2.5" />
-        </svg>
+        <ChefHat className="h-5 w-5 text-primary-foreground" />
       </span>
       {showWord && (
-        <span className="font-display text-xl tracking-tight text-foreground">
+        <span className="font-display text-2xl tracking-tight text-foreground font-bold">
           Reci<span className="text-primary">Peel</span>
         </span>
       )}

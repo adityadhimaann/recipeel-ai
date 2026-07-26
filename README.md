@@ -1,29 +1,35 @@
-# Welcome to your Lovable project
+# ReciPeel
 
-This project was built with [Lovable](https://lovable.dev).
+AI-powered recipe import, dietary safety & smart meal planning.
 
-## Build with Lovable
+## Tech Stack
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+- **Framework**: Next.js 15 App Router (React 19)
+- **Database**: Neon PostgreSQL
+- **ORM**: Drizzle ORM
+- **Auth**: Better Auth (Email & Password authentication)
+- **Styling**: Tailwind CSS v4, Lucide Icons, Sonner Toasts
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Getting Started
 
-## Development
+1. Clone the repository and install dependencies:
+   ```bash
+   npm install
+   ```
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+2. Copy `.env.example` to `.env` and provide your configuration:
+   ```bash
+   cp .env.example .env
+   ```
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+3. Run database migrations:
+   ```bash
+   npm run db:push
+   ```
 
-## Built with
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+Open [http://localhost:3000](http://localhost:3000) in your browser.
