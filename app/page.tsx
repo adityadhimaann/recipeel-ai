@@ -19,6 +19,10 @@ import {
   Heart,
   Clock,
   Flame,
+  Bot,
+  MessageSquare,
+  HelpCircle,
+  Sparkle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -113,9 +117,29 @@ const SAMPLE_RECIPES: SampleRecipe[] = [
   },
 ];
 
+const SOUSCHEF_QA = [
+  {
+    q: "How does SousChef AI screen my allergies?",
+    a: "SousChef AI compares extracted recipe ingredients against your saved onboarding profile. Hard allergy risks (like peanuts, tree nuts, or shellfish) trigger prominent RED alerts that require resolution before saving to your library.",
+  },
+  {
+    q: "Can I import TikTok and Instagram Reels?",
+    a: "Yes! Paste any TikTok, Instagram Reel, or YouTube Shorts link into ReciPeel. SousChef AI processes the video, structures the ingredient list with exact quantities, and formats step-by-step instructions automatically.",
+  },
+  {
+    q: "How are ingredient substitutions chosen?",
+    a: "ReciPeel runs on 44+ pre-seeded substitution rules. When a conflict is flagged, SousChef AI suggests 1-click swaps (e.g. Soy Sauce → Tamari, Peanut Oil → Avocado Oil) and shows live macro impact deltas.",
+  },
+  {
+    q: "How are daily calories and macros calculated?",
+    a: "During profile onboarding, our Mifflin-St Jeor TDEE calculator computes your daily energy targets based on age, sex, height, weight, and fitness goals (weight loss, muscle gain, or maintenance).",
+  },
+];
+
 export default function Landing() {
   const [selectedDemo, setSelectedDemo] = useState<SampleRecipe>(SAMPLE_RECIPES[0]);
   const [appliedSwaps, setAppliedSwaps] = useState<Record<string, boolean>>({});
+  const [activeQAIndex, setActiveQAIndex] = useState<number>(0);
 
   function toggleSwap(ingName: string) {
     setAppliedSwaps((prev) => ({
@@ -128,7 +152,7 @@ export default function Landing() {
     <div className="min-h-screen bg-background">
       <main className="mx-auto max-w-6xl px-6">
         {/* HERO SECTION */}
-        <section className="grid grid-cols-1 gap-12 pt-10 pb-20 md:grid-cols-2 md:items-center md:pt-16">
+        <section className="grid grid-cols-1 gap-12 pt-10 pb-16 md:grid-cols-2 md:items-center md:pt-16">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary-soft/60 px-4 py-1.5 text-xs font-semibold text-primary shadow-xs">
               <ChefHat className="h-4 w-4" />
@@ -297,6 +321,133 @@ export default function Landing() {
               </motion.div>
             </AnimatePresence>
             <div className="pointer-events-none absolute -inset-x-8 -bottom-8 -z-10 h-40 rounded-full bg-primary/15 blur-3xl" />
+          </div>
+        </section>
+
+        {/* DEDICATED SOUSCHEF AI INTRODUCTION CONTAINER */}
+        <section className="py-12 border-t border-border/60">
+          <div className="glass-card rounded-3xl border border-primary/30 bg-surface/90 shadow-lift p-8 sm:p-10 relative overflow-hidden backdrop-blur-xl">
+            {/* Header Badge & Title */}
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-6 mb-8">
+              <div className="flex items-center gap-3">
+                <div className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-soft">
+                  <ChefHat className="h-6 w-6" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
+                      Meet SousChef AI
+                    </h2>
+                    <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                      24/7 Kitchen Intelligence
+                    </span>
+                  </div>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    Your personal AI assistant for recipe extraction, dietary screening, and macro tracking.
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                href="/auth?mode=signup"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground shadow-soft transition hover:shadow-lift active:scale-95"
+              >
+                Chat with SousChef AI <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+
+            {/* Interactive Q&A Showcase Box */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* Left Column: Interactive Questions */}
+              <div className="lg:col-span-5 space-y-2">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-1.5">
+                  <HelpCircle className="h-3.5 w-3.5 text-primary" /> Click a question to ask SousChef AI:
+                </p>
+                {SOUSCHEF_QA.map((qa, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveQAIndex(idx)}
+                    className={`w-full text-left rounded-2xl p-3.5 text-xs font-semibold transition cursor-pointer border ${
+                      activeQAIndex === idx
+                        ? "border-primary bg-primary-soft/60 text-primary shadow-2xs"
+                        : "border-border/60 bg-surface-2/60 text-muted-foreground hover:text-foreground hover:border-border"
+                    }`}
+                  >
+                    💬 {qa.q}
+                  </button>
+                ))}
+              </div>
+
+              {/* Right Column: Live AI Response Box */}
+              <div className="lg:col-span-7 rounded-2xl border border-border/80 bg-background/80 p-5 shadow-xs flex flex-col justify-between h-full min-h-[220px]">
+                <div>
+                  <div className="flex items-center justify-between border-b border-border/60 pb-2.5 mb-3 text-xs">
+                    <div className="flex items-center gap-2 font-bold text-foreground">
+                      <Bot className="h-4 w-4 text-primary" /> SousChef AI Response
+                    </div>
+                    <span className="text-[10px] font-semibold text-emerald-600 flex items-center gap-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Verified Answer
+                    </span>
+                  </div>
+
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeQAIndex}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.18 }}
+                      className="space-y-2 text-xs leading-relaxed text-foreground"
+                    >
+                      <p className="font-bold text-primary">Q: {SOUSCHEF_QA[activeQAIndex].q}</p>
+                      <p className="text-muted-foreground whitespace-pre-line bg-surface p-3.5 rounded-xl border border-border/40">
+                        {SOUSCHEF_QA[activeQAIndex].a}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between text-[11px] text-muted-foreground">
+                  <span>Available on dashboard & recipe screens</span>
+                  <span className="font-bold text-primary">100% Free & Unlimited</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom 4 Core Capabilities Grid */}
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-8 border-t border-border/60">
+              <div className="rounded-2xl border border-border/60 bg-surface-2/60 p-4">
+                <div className="grid h-8 w-8 place-items-center rounded-xl bg-primary-soft text-primary mb-3">
+                  <Play className="h-4 w-4" />
+                </div>
+                <h4 className="font-display font-bold text-sm text-foreground">Video AI Extraction</h4>
+                <p className="mt-1 text-xs text-muted-foreground">Parses TikTok, Reel & Shorts URLs into structured recipes.</p>
+              </div>
+
+              <div className="rounded-2xl border border-border/60 bg-surface-2/60 p-4">
+                <div className="grid h-8 w-8 place-items-center rounded-xl bg-primary-soft text-primary mb-3">
+                  <ShieldCheck className="h-4 w-4" />
+                </div>
+                <h4 className="font-display font-bold text-sm text-foreground">Allergy Shields</h4>
+                <p className="mt-1 text-xs text-muted-foreground">RED hard alerts for peanuts, shellfish & save-blocking risks.</p>
+              </div>
+
+              <div className="rounded-2xl border border-border/60 bg-surface-2/60 p-4">
+                <div className="grid h-8 w-8 place-items-center rounded-xl bg-primary-soft text-primary mb-3">
+                  <Zap className="h-4 w-4" />
+                </div>
+                <h4 className="font-display font-bold text-sm text-foreground">Smart Substitutions</h4>
+                <p className="mt-1 text-xs text-muted-foreground">44+ seeded rules with 1-click swaps & live calorie previews.</p>
+              </div>
+
+              <div className="rounded-2xl border border-border/60 bg-surface-2/60 p-4">
+                <div className="grid h-8 w-8 place-items-center rounded-xl bg-primary-soft text-primary mb-3">
+                  <SlidersHorizontal className="h-4 w-4" />
+                </div>
+                <h4 className="font-display font-bold text-sm text-foreground">TDEE Macro Calculator</h4>
+                <p className="mt-1 text-xs text-muted-foreground">Computes daily calories & protein, carbs, fat splits.</p>
+              </div>
+            </div>
           </div>
         </section>
 
