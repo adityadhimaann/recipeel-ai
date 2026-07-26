@@ -184,6 +184,27 @@
   border-radius: var(--radius-xl);
 }
 
+/* Universal Dark Mode iOS 26 Container Glassmorphism */
+.dark .bg-surface,
+.dark .glass-card,
+.dark .rounded-2xl,
+.dark .rounded-3xl,
+.dark .shadow-card,
+.dark .shadow-lift {
+  background-color: rgba(34, 28, 24, 0.68) !important;
+  backdrop-filter: blur(24px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark header {
+  background-color: rgba(24, 20, 17, 0.82) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
+}
+
 @utility hover-lift {
   transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1);
   &:hover {
