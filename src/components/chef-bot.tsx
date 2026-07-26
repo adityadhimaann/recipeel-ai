@@ -126,7 +126,6 @@ Feel free to ask me specifically about importing, conflict checks, substitutions
           <ChefHat className="h-4 w-4" />
         </span>
         <span>SousChef AI</span>
-        <Sparkles className="h-4 w-4" />
       </button>
 
       {/* Floating Chat Modal */}
