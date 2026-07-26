@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getProfile } from "@/app/actions/profile";
 import { Navbar } from "@/components/navbar";
+import { ChefBot } from "@/components/chef-bot";
 import { Sparkles, Salad, CalendarDays, ShoppingBasket, MapPin, ChefHat } from "lucide-react";
 
 export default function Dashboard() {
@@ -75,6 +76,9 @@ export default function Dashboard() {
           Phase 1 shipped: schema, auth, and 42 seeded substitution rules. Onboarding + import loop next.
         </p>
       </main>
+
+      {/* Floating SousChef AI Chatbot */}
+      <ChefBot />
     </div>
   );
 }
