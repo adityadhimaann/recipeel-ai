@@ -22,6 +22,8 @@ export function Navbar({ activeMode }: { activeMode?: "signin" | "signup" | "for
     router.replace("/auth");
   }
 
+  if (pathname === "/auth") return null;
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/dashboard", label: "Kitchen Planner", icon: ChefHat },

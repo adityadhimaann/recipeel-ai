@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import { Toaster } from "sonner";
+import { Navbar } from "@/components/navbar";
 import { PageTransition } from "@/components/page-transition";
 import "@/styles.css";
 
@@ -41,7 +42,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
-      <body className="flex min-h-screen flex-col">
+      <body className="flex min-h-screen flex-col bg-background">
+        <Navbar />
         <PageTransition>{children}</PageTransition>
         <Toaster position="top-center" richColors />
       </body>

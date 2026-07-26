@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Navbar } from "@/components/navbar";
 import {
   getLibraryRecipes,
   toggleFavoriteAction,
@@ -225,8 +224,6 @@ export default function RecipeLibraryPage() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar />
-
       <main className="mx-auto w-full max-w-6xl px-6 py-8 flex-1">
         {/* Header */}
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">

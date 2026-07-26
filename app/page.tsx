@@ -1,13 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Navbar } from "@/components/navbar";
 import { ArrowRight, Sparkles, ShieldCheck, CalendarDays, ShoppingBasket } from "lucide-react";
-
 export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
       <main className="mx-auto max-w-6xl px-6">
         {/* HERO */}

@@ -1,5 +1,4 @@
 import { getRecipeById } from "@/app/actions/recipe-import";
-import { Navbar } from "@/components/navbar";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -42,8 +41,6 @@ export default async function RecipeDetailPage({
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar />
-
       <main className="mx-auto w-full max-w-4xl px-6 py-8 flex-1">
         {/* Navigation */}
         <div className="mb-6 flex items-center justify-between">

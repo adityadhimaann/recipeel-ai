@@ -8,7 +8,6 @@ import {
   saveStepPreferences,
   completeOnboarding,
 } from "@/app/actions/onboarding";
-import { Navbar } from "@/components/navbar";
 import {
   ArrowLeft,
   ArrowRight,
@@ -328,8 +327,6 @@ export default function OnboardingWizard() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar />
-
       <main className="mx-auto w-full max-w-2xl px-6 py-10 flex-1 flex flex-col justify-between">
         <div>
           {/* Progress Indicator Header */}

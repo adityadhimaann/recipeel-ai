@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getProfile } from "@/app/actions/profile";
-import { Navbar } from "@/components/navbar";
 import { ChefBot } from "@/components/chef-bot";
 import { ShieldCheck, Activity, Salad, CalendarDays, ShoppingBasket, MapPin, ChefHat } from "lucide-react";
-
 export default function Dashboard() {
   const [name, setName] = useState<string>("there");
   const [onboarded, setOnboarded] = useState<boolean | null>(null);
@@ -21,7 +19,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
       <main className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4">

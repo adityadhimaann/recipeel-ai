@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Navbar } from "@/components/navbar";
 import { extractRecipeFromUrl } from "@/app/actions/recipe";
 import {
   fetchUserPreferencesForImport,
@@ -578,8 +577,6 @@ export default function ImportRecipePage() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar />
-
       <main className="mx-auto w-full max-w-4xl px-6 py-8 flex-1">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
