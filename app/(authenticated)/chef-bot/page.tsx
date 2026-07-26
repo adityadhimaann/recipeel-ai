@@ -195,9 +195,9 @@ export default function SousChefFullPage() {
         {/* Main Grid: Chat Workspace + Right Quick Panel */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-stretch">
           {/* Main Chat Panel (8 cols) */}
-          <div className="lg:col-span-8 rounded-3xl border border-border bg-surface shadow-lift overflow-hidden flex flex-col min-h-[620px]">
+          <div className="lg:col-span-8 rounded-3xl border border-border bg-surface shadow-lift overflow-hidden flex flex-col h-[calc(100vh-175px)] min-h-[580px] max-h-[740px]">
             {/* Category Filter Chips with Real SVG Icons */}
-            <div className="p-3 border-b border-border/60 bg-surface-2/60 flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <div className="p-3 border-b border-border/60 bg-surface-2/60 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
               {CATEGORIES.map((cat) => {
                 const Icon = cat.icon;
                 return (
@@ -217,8 +217,8 @@ export default function SousChefFullPage() {
               })}
             </div>
 
-            {/* Chat Messages Log */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-background/40">
+            {/* Chat Messages Log with inner scrolling */}
+            <div className="flex-1 min-h-0 overflow-y-auto p-6 space-y-5 bg-background/40 scroll-smooth">
               {messages.map((m) => (
                 <div
                   key={m.id}
@@ -324,7 +324,7 @@ export default function SousChefFullPage() {
           </div>
 
           {/* Right Sidebar Quick Actions & Diet Status (4 cols) */}
-          <div className="lg:col-span-4 space-y-6 flex flex-col">
+          <div className="lg:col-span-4 space-y-6 flex flex-col h-[calc(100vh-175px)] min-h-[580px] max-h-[740px] overflow-y-auto pr-1 no-scrollbar">
             {/* Active Diet Profile Card */}
             <div className="rounded-3xl border border-border bg-surface p-6 shadow-card space-y-4">
               <div className="flex items-center justify-between border-b border-border/60 pb-3">
