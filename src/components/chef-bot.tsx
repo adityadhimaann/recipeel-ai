@@ -213,11 +213,10 @@ Feel free to ask me specifically about importing, conflict checks, substitutions
             {/* Suggested Prompts (Horizontally Scrollable) */}
             {messages.length <= 3 && (
               <div className="px-4 py-2.5 border-t border-border/40 bg-surface/95 flex flex-col gap-1.5">
-                <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                <div className="flex items-center text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Lightbulb className="h-3 w-3 text-primary" /> Quick Suggestions
                   </span>
-                  <span className="text-[9px] opacity-70">Scroll horizontally →</span>
                 </div>
                 <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth">
                   {SUGGESTED_PROMPTS.map((p, idx) => (
