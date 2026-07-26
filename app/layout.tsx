@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import { Toaster } from "sonner";
+import { PageTransition } from "@/components/page-transition";
 import "@/styles.css";
 
 const inter = Inter({
@@ -40,8 +41,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
-      <body>
-        {children}
+      <body className="flex min-h-screen flex-col">
+        <PageTransition>{children}</PageTransition>
         <Toaster position="top-center" richColors />
       </body>
     </html>
