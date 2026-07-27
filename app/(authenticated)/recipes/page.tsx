@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   getLibraryRecipes,
@@ -21,6 +22,7 @@ import {
   Grid,
   Heart,
   List,
+  Loader2,
   Plus,
   RotateCcw,
   Search,
@@ -57,7 +59,10 @@ type FolderItem = {
 };
 
 export default function RecipeLibraryPage() {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(true);
+  const [openingRecipeId, setOpeningRecipeId] = useState<string | null>(null);
   const [recipes, setRecipes] = useState<LibraryRecipe[]>([]);
   const [folders, setFolders] = useState<FolderItem[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
@@ -101,6 +106,15 @@ export default function RecipeLibraryPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  // Handle recipe card click & show instant loading overlay
+  function handleOpenRecipe(recipeId: string, e: React.MouseEvent) {
+    if ((e.target as HTMLElement).closest("button") || (e.target as HTMLElement).closest("form")) {
+      return;
+    }
+    setOpeningRecipeId(recipeId);
+    router.push(`/recipes/${recipeId}`);
   }
 
   // Favorite toggle
@@ -223,7 +237,7 @@ export default function RecipeLibraryPage() {
     searchQuery || safeOnly || favOnly || maxCookTime !== "any" || selectedFolderId !== "all" || selectedTag;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col font-sans">
       <main className="mx-auto w-full max-w-6xl px-6 py-8 flex-1">
         {/* Header */}
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -437,13 +451,25 @@ export default function RecipeLibraryPage() {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {filteredRecipes.map((r) => {
                   const isSafe = r.unresolvedConflicts === 0;
+                  const isOpening = openingRecipeId === r.id;
 
                   return (
                     <div
                       key={r.id}
-                      className="group relative flex flex-col justify-between rounded-3xl border border-border bg-surface p-6 shadow-card transition hover-lift hover:border-primary/40 cursor-pointer"
+                      onClick={(e) => handleOpenRecipe(r.id, e)}
+                      className="group relative flex flex-col justify-between rounded-3xl border border-border bg-surface p-6 shadow-card transition hover-lift hover:border-primary/40 cursor-pointer overflow-hidden"
                     >
-                      <Link href={`/recipes/${r.id}`} className="absolute inset-0 z-0" />
+                      {/* Opening Loading Overlay Spinner */}
+                      {isOpening && (
+                        <div className="absolute inset-0 z-30 bg-surface/90 backdrop-blur-xs rounded-3xl grid place-items-center animate-in fade-in duration-150">
+                          <div className="flex flex-col items-center gap-2">
+                            <Loader2 className="h-7 w-7 animate-spin text-primary" />
+                            <span className="text-xs font-semibold text-primary">Opening recipe...</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <Link href={`/recipes/${r.id}`} className="absolute inset-0 z-0" onClick={(e) => e.preventDefault()} />
 
                       <div className="relative z-10">
                         {/* Top Card Badges */}
@@ -583,12 +609,24 @@ export default function RecipeLibraryPage() {
               <div className="space-y-3">
                 {filteredRecipes.map((r) => {
                   const isSafe = r.unresolvedConflicts === 0;
+                  const isOpening = openingRecipeId === r.id;
+
                   return (
                     <div
                       key={r.id}
-                      className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-border bg-surface p-4 shadow-card hover:border-primary/40 transition cursor-pointer"
+                      onClick={(e) => handleOpenRecipe(r.id, e)}
+                      className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-border bg-surface p-4 shadow-card hover:border-primary/40 transition cursor-pointer overflow-hidden"
                     >
-                      <Link href={`/recipes/${r.id}`} className="absolute inset-0 z-0" />
+                      {/* Opening Loading Overlay Spinner */}
+                      {isOpening && (
+                        <div className="absolute inset-0 z-30 bg-surface/90 backdrop-blur-xs rounded-2xl grid place-items-center animate-in fade-in duration-150">
+                          <div className="flex items-center gap-2 text-primary font-semibold text-xs">
+                            <Loader2 className="h-5 w-5 animate-spin" /> Opening recipe...
+                          </div>
+                        </div>
+                      )}
+
+                      <Link href={`/recipes/${r.id}`} className="absolute inset-0 z-0" onClick={(e) => e.preventDefault()} />
 
                       <div className="relative z-10 flex items-center gap-3">
                         <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary-soft text-primary font-bold">
