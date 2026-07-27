@@ -327,10 +327,6 @@ export async function extractRecipeFromInput(
   const caption = captionText?.trim() || "";
   const url = videoUrl?.trim() || "";
 
-  if (!caption) {
-    return { success: false, error: "Please enter or paste the recipe's caption or description text." };
-  }
-
   // Realistic multi-step simulated latency (~1s per step)
   await new Promise((res) => setTimeout(res, 900));
   await new Promise((res) => setTimeout(res, 900));
@@ -459,8 +455,9 @@ export async function extractRecipeFromInput(
 
     selectedRecipe.ingredients = hydratedIngs;
   } else {
-    // FALLBACK TO VARIED MOCK LIBRARY BASED ON CAPTION STRING HASH
-    const hash = caption.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    // FALLBACK TO VARIED MOCK LIBRARY BASED ON CAPTION/URL STRING HASH
+    const hashStr = caption || url || "demo_recipe";
+    const hash = hashStr.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const mockTemplate = DEMO_MOCK_LIBRARY[hash % DEMO_MOCK_LIBRARY.length];
 
     const hydratedIngs = await Promise.all(
