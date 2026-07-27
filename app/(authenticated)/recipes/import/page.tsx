@@ -158,13 +158,10 @@ export default function ImportRecipePage() {
   // Handle Social Caption / AI Import submit
   async function handleCaptionSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!captionText.trim()) {
-      setErrorMessage("Please paste the recipe's caption or description text.");
-      return;
-    }
 
     setErrorMessage(null);
     setViewState("loading");
+
 
     try {
       const res = await extractRecipeFromCaption({
@@ -763,7 +760,7 @@ export default function ImportRecipePage() {
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className="block text-xs font-semibold uppercase tracking-wider text-foreground">
-                      Caption / Description Text <span className="text-danger">*</span>
+                      Caption / Description Text <span className="text-[11px] font-normal text-muted-foreground/70">(Optional)</span>
                     </label>
 
                     {/* Live Character Count (Only shows when near 30+ chars) */}
@@ -777,34 +774,25 @@ export default function ImportRecipePage() {
                   <textarea
                     ref={textareaRef}
                     rows={5}
-                    required
                     value={captionText}
                     onChange={handleCaptionChange}
-                    placeholder="Paste the full recipe caption, post description, or ingredient list here..."
+                    placeholder="Paste the full recipe caption, post description, or ingredient list here (or leave empty to auto-generate from URL)..."
                     className="w-full rounded-2xl border border-input bg-background p-4 text-sm text-foreground shadow-xs outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary transition resize-none font-sans leading-relaxed min-h-[140px]"
                   />
                   <p className="mt-2 text-xs text-muted-foreground flex items-start gap-2">
                     <Info className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <span>Paste the recipe&apos;s caption or description — most creators include the full ingredient list there.</span>
+                    <span>Paste the recipe&apos;s caption or description if available — or leave empty to auto-extract.</span>
                   </p>
                 </div>
 
-                {/* Smart Submit Button with Disabled Hint */}
-                <div className="relative group">
+                {/* Submit Button */}
+                <div>
                   <button
                     type="submit"
-                    disabled={!isFormValid}
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-primary py-3.5 text-sm font-semibold text-primary-foreground shadow-soft transition-all duration-200 hover:shadow-lift focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-primary py-3.5 text-sm font-semibold text-primary-foreground shadow-soft transition-all duration-200 hover:shadow-lift focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none cursor-pointer"
                   >
                     Extract Recipe & Calculate Nutrition <Wand2 className="h-4 w-4" />
                   </button>
-
-                  {/* Tooltip hint when disabled */}
-                  {!isFormValid && (
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none absolute left-1/2 -translate-x-1/2 -top-10 bg-slate-900 text-white text-[11px] font-medium px-3 py-1.5 rounded-lg shadow-lg whitespace-nowrap z-20 flex items-center gap-1.5">
-                      <Info className="h-3 w-3 text-primary" /> Paste a recipe caption above to extract
-                    </div>
-                  )}
                 </div>
               </form>
             )}
